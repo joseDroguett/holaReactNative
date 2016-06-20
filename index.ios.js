@@ -21,6 +21,8 @@ class holaMundo extends Component {
         <Text style={styles.welcome}>
           Hola mundo!!!
         </Text>
+        <Login />
+        <Dashboard />
       </View>
     );
   }
