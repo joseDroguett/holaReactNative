@@ -7,19 +7,25 @@ import React, {
 import {
   View,
   Text,
+  Image,
   TouchableHighlight,
   Alert,
-  StyleSheet
+  StyleSheet,
+  Dimensions
 } from 'react-native';
 
 class loginView extends Component {
   render() {
+    var {height, width} = Dimensions.get('window');
     return (
-      <View>
-        <TouchableHighlight onPress={this.onLogin.bind(this)} style={styles.boton}>
-          <Text style={styles.textoBoton}>Login</Text>
-        </TouchableHighlight>
-      </View>
+      <Image style={[styles.container,{width: width, height: height}]} source={require('../../assets/scarlet.jpg')}>
+        <View>
+          <Text style={styles.titulo}>Super Heroes</Text>
+          <TouchableHighlight onPress={this.aceptar.bind(this)} style={styles.boton}>
+            <Text style={styles.textoBoton}>Ingresar</Text>
+          </TouchableHighlight>
+        </View>
+      </Image>
     );
   }
 
@@ -39,9 +45,13 @@ class loginView extends Component {
       ]
     )
   }
-
+  //this.props.navigator.push para agregar
   aceptar(){
-    console.log('Aceptaste ctm')
+    this.props.navigator.replace({
+      title: 'Dashboard',
+      name: 'Dashboard',
+      passProps: {}
+    })
   }
 
   cancelar(){
@@ -50,9 +60,22 @@ class loginView extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'stretch',
+    padding: 30
+  },
+  titulo:{
+    fontSize: 35,
+    fontWeight: '900',
+    marginTop: 250,
+    textAlign: 'center',
+    color: 'white',
+    backgroundColor: 'rgba(0,0,0,0)'
+  },
   boton:{
     width: 300,
-    height: 30,
+    height: 40,
     backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
@@ -63,7 +86,7 @@ const styles = StyleSheet.create({
   },
   textoBoton:{
     color: 'white'
-  }
+  },
 })
 
 module.exports = loginView;

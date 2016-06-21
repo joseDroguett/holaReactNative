@@ -10,11 +10,11 @@ import {
   StyleSheet
 } from 'react-native';
 
-class dashboardView extends Component {
+class heroesView extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.titulo}> Bienvenido al dashboard </Text>
+        <Text style={styles.titulo}> Bienvenido al heroes </Text>
       </View>
     );
   }
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
   }
 })
 
-module.exports = dashboardView;
+module.exports = heroesView;

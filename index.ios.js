@@ -6,40 +6,87 @@ import React, {
 
 import {
   AppRegistry,
-  StyleSheet,
+  Navigator,
   Text,
-  View
+  TouchableHighlight,
+  StyleSheet
 } from 'react-native';
 
+let NavigatorBarRouteMapper = {
+  LeftButton: function(route,navigator,index){
+    if(index == 0) return null;
+    return(
+      <TouchableHighlight onPress={() =>{
+        if(index>0){
+          navigator.pop()
+        }
+      }}>
+        <Text style={styles.atras}>Atras</Text>
+      </TouchableHighlight>
+    )
+  },
+  RightButton: function(route,navigator,index){
+    return null;
+  },
+  Title: function(route,navigator,index){
+    if(route.name == 'Login' || route.name == 'Dashboard') return null;
+    return (
+      <Text style={styles.title}>
+        {route.title}
+      </Text>
+    );
+  }
+}
+
 const Login = require('./src/components/loginView.js')
-const Dashboard = require('./src/components/dashboardView.js')
+const Tabs = require('./src/components/tabs.ios.js')
 
 class holaMundo extends Component {
+
+  renderScene(route,navigator){
+    switch(route.name){
+      case 'Login':
+        return(
+          <Login navigator={navigator} route={route}/>
+        );
+      case 'Dashboard':
+        return(
+          <Tabs navigator={navigator} route={route}/>
+        );
+    }
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Hola mundo!!!
-        </Text>
-        <Login />
-        <Dashboard />
-      </View>
+      <Navigator style={styles.navi} 
+        initialRoute={{name: 'Login'}}
+        renderScene={this.renderScene}
+        cofigureScene={(route) => {
+          if(route.sceneConfig){
+            return route.sceneConfig;
+          }
+          return Navigator.SceneConfigs.FloatFromRight
+        }}
+        navigationBar={
+          <Navigator.NavigationBar 
+            routeMapper={NavigatorBarRouteMapper} 
+          />
+        }
+      />
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+  atras: {
+    marginTop:10,
+    marginLeft:20,
+    color:'#007AFF'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  title: {
+    marginTop:10,
+    color:'#007AFF'
   },
-});
+})
 
 AppRegistry.registerComponent('holaMundo', () => holaMundo);

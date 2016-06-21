@@ -1,10 +1,8 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+'use strict'
 
-import React, { Component } from 'react';
+import React, { 
+  Component 
+} from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -12,19 +10,18 @@ import {
   View
 } from 'react-native';
 
+const Login = require('./src/components/loginView.js')
+const Dashboard = require('./src/components/dashboardView.js')
+
 class holaMundo extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Hola mundo!!!
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
+        <Login />
+        <Dashboard />
       </View>
     );
   }
@@ -41,11 +38,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
   },
 });
 
