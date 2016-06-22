@@ -40,6 +40,7 @@ let NavigatorBarRouteMapper = {
 
 const Login = require('./src/components/loginView.js')
 const Tabs = require('./src/components/tabs.ios.js')
+const Details = require('./src/components/comicDetailView.js')
 
 class holaMundo extends Component {
 
@@ -52,6 +53,10 @@ class holaMundo extends Component {
       case 'Dashboard':
         return(
           <Tabs navigator={navigator} route={route}/>
+        );
+      case 'Detalles':
+        return(
+          <Details navigator={navigator} route={route}/>
         );
     }
   }

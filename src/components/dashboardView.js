@@ -14,6 +14,9 @@ import {
 } from 'react-native';
 
 const Crypto = require('crypto-js');
+
+const ComicDetail = require('./comicDetailView.js')
+
 const Request = "http://gateway.marvel.com:80/v1/public/characters";
 
 class dashboardView extends Component {
@@ -58,9 +61,8 @@ class dashboardView extends Component {
   }
 
   renderComic(comic){
-    console.log(comic);
     return(
-      <TouchableHighlight>
+      <TouchableHighlight onPress={()=> this.onComicPressed(comic)}>
         <Image source={{uri: comic.thumbnail.path+'.jpg'}} style={styles.backgroundImage}>
           <View style={styles.rightContainer}>
             <Text style={styles.titleComic}>{comic.name}</Text>
@@ -82,6 +84,14 @@ class dashboardView extends Component {
         style={styles.listview}
       />
     )
+  }
+
+  onComicPressed(comic){
+    this.props.navigator.push({
+      name: 'Detalles',
+      title: comic.name,
+      passProps: {comic: comic}
+    })
   }
 }
 

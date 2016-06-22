@@ -11,17 +11,48 @@ import {
   TouchableHighlight,
   Alert,
   StyleSheet,
-  Dimensions
+  Dimensions,
+  TextInput
 } from 'react-native';
 
 class loginView extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      nombre: '',
+      pass: ''
+    }
+  }
+
   render() {
     var {height, width} = Dimensions.get('window');
     return (
       <Image style={[styles.container,{width: width, height: height}]} source={require('../../assets/scarlet.jpg')}>
         <View>
           <Text style={styles.titulo}>Super Heroes</Text>
-          <TouchableHighlight onPress={this.aceptar.bind(this)} style={styles.boton}>
+          <TextInput
+            style={styles.miInput}
+            value={this.state.nombre}
+            onChangeText={(text) => {
+              this.setState({
+                nombre: text
+              })
+            }}
+            placeholder="Nombre de usuario"
+          />
+          <TextInput
+            style={styles.miInput}
+            value={this.state.pass}
+            onChangeText={(pass) => {
+              this.setState({
+                pass: pass
+              })
+            }}
+            placeholder="Password"
+            secureTextEntry={true}
+          />
+          <TouchableHighlight onPress={this.onLogin.bind(this)} style={styles.boton}>
             <Text style={styles.textoBoton}>Ingresar</Text>
           </TouchableHighlight>
         </View>
@@ -30,20 +61,14 @@ class loginView extends Component {
   }
 
   onLogin(){
-    Alert.alert(
-      'Acceso',
-      'Te logeaste ctm!!!',
-      [
-        {
-          text: 'Aceptar', 
-          onPress: (this.aceptar.bind(this))
-        },
-        {
-          text: 'Cancelar', 
-          onPress: (this.cancelar.bind(this)) 
-        }
-      ]
-    )
+    if(this.state.nombre == 'Pepe' && this.state.pass == 'Pepe2'){
+      this.aceptar()
+    }else{
+      Alert.alert(
+        'Te equivocaste',
+        'Usuario y/o constraseña incorrectas. Por favor vuelva a intentar.'
+      )
+    }  
   }
   //this.props.navigator.push para agregar
   aceptar(){
@@ -52,10 +77,6 @@ class loginView extends Component {
       name: 'Dashboard',
       passProps: {}
     })
-  }
-
-  cancelar(){
-    console.log('Andate a la mierda')    
   }
 }
 
@@ -86,6 +107,14 @@ const styles = StyleSheet.create({
   },
   textoBoton:{
     color: 'white'
+  },
+  miInput:{
+    backgroundColor: 'white',
+    height: 40,
+    width: 300,
+    borderRadius: 8,
+    borderWidth: 1,
+    paddingLeft: 10,
   },
 })
 
